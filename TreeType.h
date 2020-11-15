@@ -26,4 +26,6 @@ class TreeType {
 
    private:
     TreeNode* root;
+    TreeNode* GetTreeNode(TreeNode* root, int value);
+    TreeNode* PtrToSuccessor(TreeNode*& tree);
 };

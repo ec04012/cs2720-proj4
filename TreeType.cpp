@@ -176,6 +176,7 @@ void DeleteNode(TreeNode*& tree)
         Delete(tree->left, data);  // Delete predecessor node.
     }
 }
+
 // Helper function for DeleteNode
 void GetPredecessor(TreeNode* tree, ItemType& data)
 // Sets data to the info member of the right-most node in tree.
@@ -238,12 +239,48 @@ void TreeType::PrintAncestors(int value) {
     // Then Remove the following stub statement
     cout << "PrintAncestors() has been called\n";
 }
+
+TreeNode* TreeType::GetTreeNode(TreeNode* root, int value) {
+    // Helper function for GetSuccessor
+    // Searches the tree for value and returns the node containing it.
+    // If value is not in the tree, the pointer will be NULL.
+    if(root == NULL) {
+        return root;
+    } else if(value < root->info) {
+        return GetTreeNode(root->left, value);  // Search left subtree
+    } else if(value > root->info) {
+        return GetTreeNode(root->right, value);  // Search right subtree.
+    } else {
+        return root;
+    }
+}
+
+TreeNode* TreeType::PtrToSuccessor(TreeNode*& tree) {
+    // Helper function for GetSuccessor
+    // returns a pointer to node with the smallest key value in the tree.
+    TreeNode* successor = tree;
+    while(successor->left != NULL) successor = successor->left;
+    return successor;
+}
+
 int TreeType::GetSuccessor(int value) {
     // Implement this function, You may call a helper function
+    TreeNode* currentNode = GetTreeNode(root, value);
+    if(currentNode != NULL) {
+        currentNode = currentNode->right;
+        if(currentNode != NULL) {
+            TreeNode* successor = PtrToSuccessor(currentNode);
+            cout << successor->info << endl;
+            return successor->info;
+        }
+        cout << "NULL Successor" << endl;
+    } else {
+        cout << "Item is not in tree." << endl;
+    }
     // Then Remove the following stub statement
-    cout << "GetSuccessor() has been called\n";
     return 0;  // you should change this return statement
 }
+
 // helper function for Mirror Image
 void mirror(TreeNode*& copy, const TreeNode* originalTree)
 // Post: copy is the root of a tree that is a mirror Image of originalTree.
