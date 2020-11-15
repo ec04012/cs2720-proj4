@@ -195,6 +195,28 @@ void inOrderTraverse(TreeNode* tree)
     }
 }
 
+// Helper function for Print
+void preOrderTraverse(TreeNode* tree)
+// Prints info member of items in tree in pre order traversal on screen.
+{
+    if(tree != NULL) {
+        cout << tree->info << "  ";
+        preOrderTraverse(tree->left);   // Print left subtree.
+        preOrderTraverse(tree->right);  // Print right subtree.
+    }
+}
+
+// Helper function for Print
+void postOrderTraverse(TreeNode* tree)
+// Prints info member of items in tree in post order traversal on screen.
+{
+    if(tree != NULL) {
+        postOrderTraverse(tree->left);   // Print left subtree.
+        postOrderTraverse(tree->right);  // Print right subtree.
+        cout << tree->info << "  ";
+    }
+}
+
 void TreeType::Print() const
 // Calls recursive function inOrderTraverse to print items in the tree.
 {
@@ -202,12 +224,14 @@ void TreeType::Print() const
 }
 void TreeType::PreOrderPrint() const {  // Implement this function, You may call a helper function
                                         // Then Remove the following stub statement
-    cout << "PreOrderPrint stub has been called\n";
+    preOrderTraverse(root);
+    // cout << "PreOrderPrint stub has been called\n";
 }
 void TreeType::PostOrderPrint() const {
     // Implement this function, You may call a helper function
     // Then Remove the following stub statement
-    cout << "Post OrderPrint stub has been called\n";
+    postOrderTraverse(root);
+    // cout << "Post OrderPrint stub has been called\n";
 }
 void TreeType::PrintAncestors(int value) {
     // Implement this function, You may call a helper function
@@ -313,5 +337,4 @@ void TreeType::LevelOrderPrint() const {  // Implement this function, you May us
         */
 
     }  // if root is not null (ie if the tree is not empty)
-    cout << endl;
 }

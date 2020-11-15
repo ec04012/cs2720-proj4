@@ -68,16 +68,19 @@ int main() {
         else if(command == "PreOrderPrint") {
             cout << "PreOrder Print:\n";
             tree.PreOrderPrint();
+            cout << endl;
         }
         // 9
         else if(command == "PostOrderPrint") {
             cout << "PostOrder Print:\n";
             tree.PostOrderPrint();
+            cout << endl;
         }
         // 10
         else if(command == "LevelOrderPrint") {
             cout << "LevelOrder Print:\n";
             tree.LevelOrderPrint();
+            cout << endl;
         }
         // 11
         else if(command == "MakeEmpty") {
