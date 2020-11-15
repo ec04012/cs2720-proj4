@@ -1,5 +1,7 @@
 #include <iostream>
 using namespace std;
+#include <cmath>
+
 #include "TreeType.h"
 
 struct TreeNode {
@@ -258,4 +260,58 @@ void TreeType::operator=(const TreeType& originalTree)
 }
 
 void TreeType::LevelOrderPrint() const {  // Implement this function, you May use a data structure
+    QueType<TreeNode*> nodeQue;
+    TreeNode* currentNode;
+    if(root != NULL) {
+        currentNode = root;
+        nodeQue.Enqueue(currentNode);
+        int numNodesPrinted = 0;
+        int sizeOfTree = CountNodes(root);  // used to stop printing once we've printed every node
+        int i = 0;                          // Used to track how many nodes on a level we've printed
+        int currentLevel = 0;               // used two track num of nodes on our current level
+
+        // Align top level
+        for(int j = 0; j < sizeOfTree; j++) {
+            cout << "  ";
+        }
+
+        // Keep printing nodes until the queue is empty and we've printed every node.
+        while(!nodeQue.IsEmpty() && numNodesPrinted < sizeOfTree) {
+            nodeQue.Dequeue(currentNode);
+
+            if(i == pow(2, currentLevel)) {
+                // If we've reached the end of a level, print \n and align next level before continuing
+                cout << endl;
+                for(int j = 0; j < sizeOfTree - currentLevel - 1; j++) {
+                    cout << "  ";
+                }
+                i = 0;
+                currentLevel++;
+            }
+
+            // If the node is not NULL, enqueue left and right, and print the node's value
+            if(currentNode != NULL) {
+                nodeQue.Enqueue(currentNode->left);
+                nodeQue.Enqueue(currentNode->right);
+                cout << currentNode->info << " ";
+                numNodesPrinted = numNodesPrinted + 1;  // Increment this every time we dequeue a non-null TreeNode
+            } else {
+                // If the node is null, print -
+                cout << "- ";
+            }
+            i++;  // increment i everytime we print something, use i to keep track of how many nodes on a level we've printed
+        }         // while que is not empty
+
+        // If necessary, print extra dashes to fill current level
+        /*
+        int sizeOfCurrentLevel = pow(2, currentLevel);
+        if(i < sizeOfCurrentLevel) {
+            for(int j = i; j < sizeOfCurrentLevel; j++) {
+                cout << "- ";
+            }
+        }
+        */
+
+    }  // if root is not null (ie if the tree is not empty)
+    cout << endl;
 }
