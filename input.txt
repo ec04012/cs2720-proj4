@@ -46,7 +46,12 @@ Print
 MakeEmpty
 IsEmpty
 MakeTree 10 10 20 30 40 50 60 70 80 90 100
-LevelOrderPrint
+MakeTree 1 5
+MakeTree 2 5 10
+MakeTree 3 15 17 20
+MakeTree 4 1 2 3 4
+MakeTree 5 10 20 30 40 50
+MakeTree 6 2 4 6 8 10 12
 PrintTree
 Error
 Quit

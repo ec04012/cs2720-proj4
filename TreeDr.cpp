@@ -7,7 +7,9 @@
 
 #include "TreeType.h"
 using namespace std;
-TreeType& makeTree(int arr[], int size);
+// TreeType& makeTree(int arr[], int size);
+void makeTree(TreeType& balancedTree, int arr[], int size);
+void makeBalancedTree(TreeType& balancedTree, int arr[], int lower, int higher);
 int main() {
     string command;  // operation to be executed
 
@@ -129,7 +131,15 @@ int main() {
             for(int i = 0; i < length; i++) inFile >> array[i];
             // After implementing makeTree
             // Remove the follwoing comment to call the function
-            //	  TreeType balancedTree=makeTree(array, length);
+            TreeType balancedTree;
+            makeTree(balancedTree, array, length);
+            cout << "balancedTree.LevelOrderPrint()\n" << endl;
+            balancedTree.LevelOrderPrint();
+            cout << "balancedTree.InOrderPrint()" << endl;
+            for(int i = 0; i < length; i++) {
+                cout << array[i] << "  ";
+            }
+            cout << endl;
         } else
             cout << "Undefined Command!" << command << endl;
         inFile >> command;
@@ -141,11 +151,23 @@ int main() {
 // implement this function
 // you may define and call helper functions.
 // The helper function could be an iterative or a recursive function.
-TreeType& makeTree(int arr[], int size) {
-    TreeType balancedTree;
+void makeTree(TreeType& balancedTree, int arr[], int size) {
     // Code to add array items in balancedTree
     // Write your code
-    cout << "MakeTree has been called";
+    cout << "MakeTree has been called" << endl;
+    makeBalancedTree(balancedTree, arr, 0, size);
     // remove this statement from implementation
-    return balancedTree;
+}
+
+void makeBalancedTree(TreeType& balancedTree, int arr[], int lower, int higher) {
+    if(lower == higher) {
+        // base case, when there is only one element
+        return;
+    }
+
+    // General cases
+    int mid = (lower + higher) / 2;                        // calcualate mid-point
+    balancedTree.PutItem(arr[mid]);                        // add element at mid-point to Tree
+    makeBalancedTree(balancedTree, arr, lower, mid);       // perform recursion on left half
+    makeBalancedTree(balancedTree, arr, mid + 1, higher);  // perform recursion on right half
 }
