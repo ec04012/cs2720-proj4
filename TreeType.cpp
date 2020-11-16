@@ -17,6 +17,7 @@ TreeType::TreeType() {
 
 TreeType::TreeType(const TreeType& originalTree) {
     // Implement this
+    // CopyTree(root, originalTree.root);
     root = NULL;
 }
 
@@ -228,33 +229,45 @@ void TreeType::PostOrderPrint() const {
 void TreeType::PrintAncestors(int value) {
     // Implement this function, You may call a helper function
     // Then Remove the following stub statement
+
+    if(root != NULL && root->info == value) {
+        cout << value << " is the root value, No ancestor" << endl;
+        return;
+    }
+    if(root == NULL) {
+        cout << "Tree is empty" << endl;
+        return;
+    }
+
+    // What to do for PrintAncestors on empty list?
+
     TreeNode* temp = root;
     QueType<int> que;
     bool inTree = true;
 
     while(temp != NULL && temp->info != value && inTree) {
-        if(temp->right != NULL && temp->right->info <= value) {
+        if(temp->info < value && temp->right != NULL) {
             que.Enqueue(temp->info);
             temp = temp->right;
-        } else if(temp->left != NULL && temp->left->info >= value) {
+        } else if(temp->info > value && temp->left != NULL) {
             que.Enqueue(temp->info);
             temp = temp->left;
+        } else if(temp->info == value) {
+            inTree = true;
         } else {
             inTree = false;
-        }
-    }
+        }  // if else
+    }      // while
 
-    if(inTree && !que.IsEmpty()) {
-        cout << "PrintAncestors() has been called\n";
+    if(inTree) {
         ItemType item;
         while(!que.IsEmpty()) {
             que.Dequeue(item);
-            cout << item << " ";
-        }
+            if(item != value) {
+                cout << item << " ";
+            }
+        }  // while
         cout << endl;
-        return;
-    } else if(que.IsEmpty()) {
-        cout << value << " is the root value, No ancestor" << endl;
         return;
     }
     cout << value << " is not in the tree" << endl;
