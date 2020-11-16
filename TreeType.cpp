@@ -128,7 +128,7 @@ void TreeType::DeleteItem(ItemType item)
     if(found)
         Delete(root, item);
     else
-        cout << item << "is not in tree\n";
+        cout << item << " is not in tree\n";
 }
 
 void TreeType::Delete(TreeNode*& tree, ItemType item)
@@ -314,13 +314,22 @@ int TreeType::GetSuccessor(int value) {
 }
 
 // helper function for Mirror Image
-void TreeType::mirror(TreeNode*& copy, const TreeNode* originalTree)
-// Post: copy is the root of a tree that is a mirror Image of originalTree.
-{  // implement this function
+void TreeType::mirror(TreeNode*& copy, const TreeNode* originalTree) {
+    // Post: copy is the root of a tree that is a mirror Image of originalTree.
+
+    if(originalTree == NULL)
+        copy = NULL;
+    else {
+        copy = new TreeNode;
+        copy->info = originalTree->info;
+        mirror(copy->left, originalTree->right);
+        mirror(copy->right, originalTree->left);
+    }
 }
 
 void TreeType::mirrorImage(TreeType& t) {
     // calls the helper function mirror
+    mirror(t.root, root);
 }
 
 void TreeType::MakeEmpty() {
@@ -406,4 +415,5 @@ void TreeType::LevelOrderPrint() const {  // Implement this function, you May us
         */
 
     }  // if root is not null (ie if the tree is not empty)
+    cout << endl;
 }

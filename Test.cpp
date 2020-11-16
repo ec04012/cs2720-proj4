@@ -22,10 +22,25 @@ int main() {
     tree2.DeleteItem(35);
     tree2.PutItem(100);
 
+    cout << "======================" << endl;
+
     tree.LevelOrderPrint();
     cout << endl;
 
     tree2.LevelOrderPrint();
+    cout << endl;
+
+    tree.mirrorImage(tree2);
+    cout << endl;
+
+    cout << "======================" << endl;
+
+    tree.LevelOrderPrint();
+    cout << endl;
+
+    tree2.LevelOrderPrint();
+    cout << endl;
+
     cout << endl;
     return 0;
 }

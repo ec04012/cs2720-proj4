@@ -2,6 +2,9 @@
 link: QueType TreeType Test.cpp
 	g++ -Wall -g -pedantic-errors -o p4 QueType.o TreeType.o Test.cpp
 
+TreeDr: QueType TreeType TreeDr.cpp
+	g++ -Wall -g -pedantic-errors -o p4 QueType.o TreeType.o TreeDr.cpp
+
 TreeType: TreeDr.cpp TreeType.h
 	g++ -c -Wall -g -pedantic-errors TreeType.cpp
 

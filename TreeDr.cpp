@@ -15,8 +15,10 @@ int main() {
     TreeType tree;
     bool found;
     ifstream inFile;
-    inFile.open("input2.txt");
+    inFile.open("input.txt");
     inFile >> command;
+
+    cout << "Implemented by Eric Chow" << endl;
 
     while(command != "Quit") {
         // 1
@@ -39,7 +41,7 @@ int main() {
             if(found)
                 cout << item << " found in tree." << endl;
             else
-                cout << item << " is not in tree." << endl;
+                cout << item << "  is not in tree." << endl;
         }
         // 4
         else if(command == "GetLength") {
@@ -78,9 +80,8 @@ int main() {
         }
         // 10
         else if(command == "LevelOrderPrint") {
-            cout << "LevelOrder Print:\n";
+            cout << "LevelOrder Print:\n\n";
             tree.LevelOrderPrint();
-            cout << endl;
         }
         // 11
         else if(command == "MakeEmpty") {
@@ -91,13 +92,13 @@ int main() {
         // 12
         else if(command == "GetSuccessor") {
             inFile >> item;
-            cout << "Logical successor of" << item << "is:\n";
+            cout << "Logical successor of " << item << " is: ";
             tree.GetSuccessor(item);
         }
         // 13
         else if(command == "PrintAncestorsOf") {
             inFile >> item;
-            cout << "testing Ancestors of" << item << endl;
+            cout << "testing Ancestors of " << item << endl;
             tree.PrintAncestors(item);
         }
         // 14
