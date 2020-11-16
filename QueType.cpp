@@ -46,7 +46,7 @@ bool QueType<ItemType>::IsFull() const
         location = new NodeType<ItemType>;
         delete location;
         return false;
-    } catch(std::bad_alloc) {
+    } catch(const std::bad_alloc&) {
         return true;
     }
 }

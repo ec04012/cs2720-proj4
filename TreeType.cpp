@@ -51,7 +51,7 @@ bool TreeType<ItemType>::IsFull() const
         location = new TreeNode<ItemType>;
         delete location;
         return false;
-    } catch(std::bad_alloc exception) {
+    } catch(const std::bad_alloc& exception) {
         return true;
     }
 }
@@ -411,6 +411,8 @@ void TreeType<ItemType>::LevelOrderPrint() const {  // Implement this function, 
             cout << "  ";
         }
 
+        TreeNode<ItemType>* endNode = new TreeNode<ItemType>;  // Use this node to mark an empty node that should be printed as a space
+
         // Keep printing nodes until the queue is empty and we've printed every node.
         while(!nodeQue.IsEmpty() && numNodesPrinted < sizeOfTree) {
             nodeQue.Dequeue(currentNode);
@@ -426,27 +428,31 @@ void TreeType<ItemType>::LevelOrderPrint() const {  // Implement this function, 
             }
 
             // If the node is not NULL, enqueue left and right, and print the node's value
-            if(currentNode != NULL) {
+            if(currentNode == endNode) {
+                // If the node is null, print -
+                cout << " ";
+                nodeQue.Enqueue(endNode);
+                nodeQue.Enqueue(endNode);
+            } else if(currentNode != NULL) {
                 nodeQue.Enqueue(currentNode->left);
                 nodeQue.Enqueue(currentNode->right);
                 cout << currentNode->info << " ";
                 numNodesPrinted = numNodesPrinted + 1;  // Increment this every time we dequeue a non-null TreeNode<ItemType>
             } else {
-                // If the node is null, print -
                 cout << "- ";
+                nodeQue.Enqueue(endNode);
+                nodeQue.Enqueue(endNode);
             }
             i++;  // increment i everytime we print something, use i to keep track of how many nodes on a level we've printed
         }         // while que is not empty
-
         // If necessary, print extra dashes to fill current level
-        /*
+
         int sizeOfCurrentLevel = pow(2, currentLevel);
         if(i < sizeOfCurrentLevel) {
             for(int j = i; j < sizeOfCurrentLevel; j++) {
                 cout << "- ";
             }
         }
-        */
 
     }  // if root is not null (ie if the tree is not empty)
     cout << endl;
