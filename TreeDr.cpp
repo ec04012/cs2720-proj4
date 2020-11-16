@@ -5,16 +5,21 @@
 #include <iostream>
 #include <string>
 
-#include "TreeType.h"
+#include "TreeType.cpp"
 using namespace std;
+
 // TreeType& makeTree(int arr[], int size);
-void makeTree(TreeType& balancedTree, int arr[], int size);
-void makeBalancedTree(TreeType& balancedTree, int arr[], int lower, int higher);
+template <class ItemType>
+void makeTree(TreeType<ItemType>& balancedTree, int arr[], int size);
+
+template <class ItemType>
+void makeBalancedTree(TreeType<ItemType>& balancedTree, int arr[], int lower, int higher);
+
 int main() {
     string command;  // operation to be executed
 
     int item;
-    TreeType tree;
+    TreeType<int> tree;
     bool found;
     ifstream inFile;
     inFile.open("input.txt");
@@ -116,7 +121,7 @@ int main() {
             tree.PutItem(20);
             cout << "\nOriginal Tree before mirroring:\n";
             tree.LevelOrderPrint();
-            TreeType mirrorOftree;
+            TreeType<int> mirrorOftree;
             tree.mirrorImage(mirrorOftree);
             cout << "Original Tree After Mirroring:\n";
             tree.LevelOrderPrint();
@@ -131,7 +136,7 @@ int main() {
             for(int i = 0; i < length; i++) inFile >> array[i];
             // After implementing makeTree
             // Remove the follwoing comment to call the function
-            TreeType balancedTree;
+            TreeType<int> balancedTree;
             makeTree(balancedTree, array, length);
             cout << "balancedTree.LevelOrderPrint()\n" << endl;
             balancedTree.LevelOrderPrint();
@@ -148,10 +153,12 @@ int main() {
 
     return 0;
 }
+
 // implement this function
 // you may define and call helper functions.
 // The helper function could be an iterative or a recursive function.
-void makeTree(TreeType& balancedTree, int arr[], int size) {
+template <class ItemType>
+void makeTree(TreeType<ItemType>& balancedTree, int arr[], int size) {
     // Code to add array items in balancedTree
     // Write your code
     cout << "MakeTree has been called" << endl;
@@ -159,7 +166,8 @@ void makeTree(TreeType& balancedTree, int arr[], int size) {
     // remove this statement from implementation
 }
 
-void makeBalancedTree(TreeType& balancedTree, int arr[], int lower, int higher) {
+template <class ItemType>
+void makeBalancedTree(TreeType<ItemType>& balancedTree, int arr[], int lower, int higher) {
     if(lower == higher) {
         // base case, when there is only one element
         return;

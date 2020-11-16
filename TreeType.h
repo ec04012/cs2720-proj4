@@ -1,8 +1,12 @@
 #include <fstream>
 #include <string>
-typedef int ItemType;
-struct TreeNode;
+
 #include "QueType.cpp"
+
+template <class ItemType>
+struct TreeNode;
+
+template <class ItemType>
 class TreeType {
    public:
     TreeType();                              // constructor
@@ -25,19 +29,19 @@ class TreeType {
     void mirrorImage(TreeType& t);
 
    private:
-    TreeNode* root;
-    void Destroy(TreeNode*& tree);
-    void Retrieve(TreeNode* tree, ItemType& item, bool& found);
-    void Insert(TreeNode*& tree, ItemType item);
-    void DeleteNode(TreeNode*& tree);
-    void Delete(TreeNode*& tree, ItemType item);
-    void GetPredecessor(TreeNode* tree, ItemType& data);
-    int CountNodes(TreeNode* tree) const;
-    TreeNode* GetTreeNode(TreeNode* root, int value);
-    TreeNode* PtrToSuccessor(TreeNode*& tree);
-    void inOrderTraverse(TreeNode* tree) const;
-    void preOrderTraverse(TreeNode* tree) const;
-    void postOrderTraverse(TreeNode* tree) const;
-    void mirror(TreeNode*& copy, const TreeNode* originalTree);
-    void CopyTree(TreeNode*& copy, const TreeNode* originalTree);
+    TreeNode<ItemType>* root;
+    void Destroy(TreeNode<ItemType>*& tree);
+    void Retrieve(TreeNode<ItemType>* tree, ItemType& item, bool& found);
+    void Insert(TreeNode<ItemType>*& tree, ItemType item);
+    void DeleteNode(TreeNode<ItemType>*& tree);
+    void Delete(TreeNode<ItemType>*& tree, ItemType item);
+    void GetPredecessor(TreeNode<ItemType>* tree, ItemType& data);
+    int CountNodes(TreeNode<ItemType>* tree) const;
+    TreeNode<ItemType>* GetTreeNode(TreeNode<ItemType>* root, int value);
+    TreeNode<ItemType>* PtrToSuccessor(TreeNode<ItemType>*& tree);
+    void inOrderTraverse(TreeNode<ItemType>* tree) const;
+    void preOrderTraverse(TreeNode<ItemType>* tree) const;
+    void postOrderTraverse(TreeNode<ItemType>* tree) const;
+    void mirror(TreeNode<ItemType>*& copy, const TreeNode<ItemType>* originalTree);
+    void CopyTree(TreeNode<ItemType>*& copy, const TreeNode<ItemType>* originalTree);
 };

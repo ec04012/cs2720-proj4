@@ -4,23 +4,27 @@ using namespace std;
 
 #include "TreeType.h"
 
+template <class ItemType>
 struct TreeNode {
     ItemType info;
-    TreeNode* left;
-    TreeNode* right;
+    TreeNode<ItemType>* left;
+    TreeNode<ItemType>* right;
 };
 
-TreeType::TreeType() {
+template <class ItemType>
+TreeType<ItemType>::TreeType() {
     // Default constructor
     root = NULL;
 }
 
-TreeType::TreeType(const TreeType& originalTree) {
+template <class ItemType>
+TreeType<ItemType>::TreeType(const TreeType<ItemType>& originalTree) {
     // Implement this
     CopyTree(root, originalTree.root);
 }
 
-void TreeType::Destroy(TreeNode*& tree)
+template <class ItemType>
+void TreeType<ItemType>::Destroy(TreeNode<ItemType>*& tree)
 // Post: tree is empty; nodes have been deallocated.
 {
     if(tree != NULL) {
@@ -30,19 +34,21 @@ void TreeType::Destroy(TreeNode*& tree)
     }
 }
 
-TreeType::~TreeType()
+template <class ItemType>
+TreeType<ItemType>::~TreeType()
 // Calls recursive function Destroy to destroy the tree.
 {
     Destroy(root);
 }
 
-bool TreeType::IsFull() const
+template <class ItemType>
+bool TreeType<ItemType>::IsFull() const
 // Returns true if there is no room for another item
 //  on the free store; false otherwise.
 {
-    TreeNode* location;
+    TreeNode<ItemType>* location;
     try {
-        location = new TreeNode;
+        location = new TreeNode<ItemType>;
         delete location;
         return false;
     } catch(std::bad_alloc exception) {
@@ -50,20 +56,23 @@ bool TreeType::IsFull() const
     }
 }
 
-bool TreeType::IsEmpty() const
+template <class ItemType>
+bool TreeType<ItemType>::IsEmpty() const
 // Returns true if the tree is empty; false otherwise.
 {
     return root == NULL;
 }
 
-int TreeType::GetLength() const
+template <class ItemType>
+int TreeType<ItemType>::GetLength() const
 // Calls recursive function CountNodes to count the
 // nodes in the tree.
 {
     return CountNodes(root);
 }
 
-int TreeType::CountNodes(TreeNode* tree) const
+template <class ItemType>
+int TreeType<ItemType>::CountNodes(TreeNode<ItemType>* tree) const
 // Post: returns the number of nodes in the tree.
 {
     if(tree == NULL)
@@ -72,8 +81,9 @@ int TreeType::CountNodes(TreeNode* tree) const
         return CountNodes(tree->left) + CountNodes(tree->right) + 1;
 }
 
+template <class ItemType>
 // helper function for GetItem
-void TreeType::Retrieve(TreeNode* tree, ItemType& item, bool& found)
+void TreeType<ItemType>::Retrieve(TreeNode<ItemType>* tree, ItemType& item, bool& found)
 // Recursively searches tree for item.
 // Post: If there is an element someItem whose key matches item's,
 //       found is true and item is set to a copy of someItem;
@@ -91,26 +101,29 @@ void TreeType::Retrieve(TreeNode* tree, ItemType& item, bool& found)
     }
 }
 
-ItemType TreeType::GetItem(ItemType item, bool& found)
+template <class ItemType>
+ItemType TreeType<ItemType>::GetItem(ItemType item, bool& found)
 // Calls recursive function Retrieve to search the tree for item.
 {
     Retrieve(root, item, found);
     return item;
 }
 
-void TreeType::PutItem(ItemType item)
+template <class ItemType>
+void TreeType<ItemType>::PutItem(ItemType item)
 // Calls recursive function Insert to insert item into tree.
 {
     Insert(root, item);
 }
 
+template <class ItemType>
 // helper Function for PutItem
-void TreeType::Insert(TreeNode*& tree, ItemType item)
+void TreeType<ItemType>::Insert(TreeNode<ItemType>*& tree, ItemType item)
 // Inserts item into tree.
 // Post:  item is in tree; search property is maintained.
 {
     if(tree == NULL) {  // Insertion place found.
-        tree = new TreeNode;
+        tree = new TreeNode<ItemType>;
         tree->right = NULL;
         tree->left = NULL;
         tree->info = item;
@@ -120,7 +133,8 @@ void TreeType::Insert(TreeNode*& tree, ItemType item)
         Insert(tree->right, item);  // Insert in right subtree.
 }
 
-void TreeType::DeleteItem(ItemType item)
+template <class ItemType>
+void TreeType<ItemType>::DeleteItem(ItemType item)
 // Calls recursive function Delete to delete item from tree.
 {
     bool found = false;
@@ -131,7 +145,8 @@ void TreeType::DeleteItem(ItemType item)
         cout << item << " is not in tree\n";
 }
 
-void TreeType::Delete(TreeNode*& tree, ItemType item)
+template <class ItemType>
+void TreeType<ItemType>::Delete(TreeNode<ItemType>*& tree, ItemType item)
 // Deletes item from tree.
 // Post:  item is not in tree.
 {
@@ -143,7 +158,8 @@ void TreeType::Delete(TreeNode*& tree, ItemType item)
         DeleteNode(tree);  // Node found; call DeleteNode.
 }
 
-void TreeType::DeleteNode(TreeNode*& tree)
+template <class ItemType>
+void TreeType<ItemType>::DeleteNode(TreeNode<ItemType>*& tree)
 // Deletes the node pointed to by tree.
 // Post: The user's data in the node pointed to by tree is no
 //       longer in the tree.  If tree is a leaf node or has only
@@ -152,7 +168,7 @@ void TreeType::DeleteNode(TreeNode*& tree)
 //       logical predecessor and the predecessor's node is deleted.
 {
     ItemType data;
-    TreeNode* tempPtr;
+    TreeNode<ItemType>* tempPtr;
 
     tempPtr = tree;
     if(tree->left == NULL) {
@@ -169,7 +185,8 @@ void TreeType::DeleteNode(TreeNode*& tree)
 }
 
 // Helper function for DeleteNode
-void TreeType::GetPredecessor(TreeNode* tree, ItemType& data)
+template <class ItemType>
+void TreeType<ItemType>::GetPredecessor(TreeNode<ItemType>* tree, ItemType& data)
 // Sets data to the info member of the right-most node in tree.
 {
     while(tree->right != NULL) tree = tree->right;
@@ -177,7 +194,8 @@ void TreeType::GetPredecessor(TreeNode* tree, ItemType& data)
 }
 
 // Helper function for Print
-void TreeType::inOrderTraverse(TreeNode* tree) const
+template <class ItemType>
+void TreeType<ItemType>::inOrderTraverse(TreeNode<ItemType>* tree) const
 // Prints info member of items in tree in sorted order on screen.
 {
     if(tree != NULL) {
@@ -188,7 +206,8 @@ void TreeType::inOrderTraverse(TreeNode* tree) const
 }
 
 // Helper function for Print
-void TreeType::preOrderTraverse(TreeNode* tree) const
+template <class ItemType>
+void TreeType<ItemType>::preOrderTraverse(TreeNode<ItemType>* tree) const
 // Prints info member of items in tree in pre order traversal on screen.
 {
     if(tree != NULL) {
@@ -199,7 +218,8 @@ void TreeType::preOrderTraverse(TreeNode* tree) const
 }
 
 // Helper function for Print
-void TreeType::postOrderTraverse(TreeNode* tree) const
+template <class ItemType>
+void TreeType<ItemType>::postOrderTraverse(TreeNode<ItemType>* tree) const
 // Prints info member of items in tree in post order traversal on screen.
 {
     if(tree != NULL) {
@@ -209,23 +229,27 @@ void TreeType::postOrderTraverse(TreeNode* tree) const
     }
 }
 
-void TreeType::Print() const
+template <class ItemType>
+void TreeType<ItemType>::Print() const
 // Calls recursive function inOrderTraverse to print items in the tree.
 {
     inOrderTraverse(root);
 }
-void TreeType::PreOrderPrint() const {  // Implement this function, You may call a helper function
-                                        // Then Remove the following stub statement
+template <class ItemType>
+void TreeType<ItemType>::PreOrderPrint() const {  // Implement this function, You may call a helper function
+                                                  // Then Remove the following stub statement
     preOrderTraverse(root);
     // cout << "PreOrderPrint stub has been called\n";
 }
-void TreeType::PostOrderPrint() const {
+template <class ItemType>
+void TreeType<ItemType>::PostOrderPrint() const {
     // Implement this function, You may call a helper function
     // Then Remove the following stub statement
     postOrderTraverse(root);
     // cout << "Post OrderPrint stub has been called\n";
 }
-void TreeType::PrintAncestors(int value) {
+template <class ItemType>
+void TreeType<ItemType>::PrintAncestors(int value) {
     // Implement this function, You may call a helper function
     // Then Remove the following stub statement
 
@@ -240,7 +264,7 @@ void TreeType::PrintAncestors(int value) {
 
     // What to do for PrintAncestors on empty list?
 
-    TreeNode* temp = root;
+    TreeNode<ItemType>* temp = root;
     QueType<int> que;
     bool inTree = true;
 
@@ -272,7 +296,8 @@ void TreeType::PrintAncestors(int value) {
     cout << value << " is not in the tree" << endl;
 }
 
-TreeNode* TreeType::GetTreeNode(TreeNode* root, int value) {
+template <class ItemType>
+TreeNode<ItemType>* TreeType<ItemType>::GetTreeNode(TreeNode<ItemType>* root, int value) {
     // Helper function for GetSuccessor
     // Searches the tree for value and returns the node containing it.
     // If value is not in the tree, the pointer will be NULL.
@@ -287,25 +312,27 @@ TreeNode* TreeType::GetTreeNode(TreeNode* root, int value) {
     }
 }
 
-TreeNode* TreeType::PtrToSuccessor(TreeNode*& tree) {
+template <class ItemType>
+TreeNode<ItemType>* TreeType<ItemType>::PtrToSuccessor(TreeNode<ItemType>*& tree) {
     // Helper function for GetSuccessor
     // returns a pointer to node with the smallest key value in the tree.
-    TreeNode* successor = tree;
+    TreeNode<ItemType>* successor = tree;
     while(successor->left != NULL) successor = successor->left;
     return successor;
 }
 
-int TreeType::GetSuccessor(int value) {
+template <class ItemType>
+int TreeType<ItemType>::GetSuccessor(int value) {
     // Implement this function, You may call a helper function
-    TreeNode* currentNode = GetTreeNode(root, value);
+    TreeNode<ItemType>* currentNode = GetTreeNode(root, value);
     if(currentNode != NULL) {
         currentNode = currentNode->right;
         if(currentNode != NULL) {
-            TreeNode* successor = PtrToSuccessor(currentNode);
+            TreeNode<ItemType>* successor = PtrToSuccessor(currentNode);
             cout << successor->info << endl;
             return successor->info;
         }
-        cout << "NULL Successor" << endl;
+        cout << "NULL" << endl;
     } else {
         cout << "Item is not in tree." << endl;
     }
@@ -313,44 +340,50 @@ int TreeType::GetSuccessor(int value) {
     return 0;  // you should change this return statement
 }
 
+template <class ItemType>
 // helper function for Mirror Image
-void TreeType::mirror(TreeNode*& copy, const TreeNode* originalTree) {
+void TreeType<ItemType>::mirror(TreeNode<ItemType>*& copy, const TreeNode<ItemType>* originalTree) {
     // Post: copy is the root of a tree that is a mirror Image of originalTree.
 
     if(originalTree == NULL)
         copy = NULL;
     else {
-        copy = new TreeNode;
+        copy = new TreeNode<ItemType>;
         copy->info = originalTree->info;
         mirror(copy->left, originalTree->right);
         mirror(copy->right, originalTree->left);
     }
 }
 
-void TreeType::mirrorImage(TreeType& t) {
+template <class ItemType>
+void TreeType<ItemType>::mirrorImage(TreeType& t) {
     // calls the helper function mirror
     mirror(t.root, root);
 }
 
-void TreeType::MakeEmpty() {
+template <class ItemType>
+void TreeType<ItemType>::MakeEmpty() {
     Destroy(root);
     root = NULL;
 }
-void TreeType::CopyTree(TreeNode*& copy, const TreeNode* originalTree)
+
+template <class ItemType>
+void TreeType<ItemType>::CopyTree(TreeNode<ItemType>*& copy, const TreeNode<ItemType>* originalTree)
 // Post: copy is the root of a tree that is a duplicate
 // of originalTree.
 {
     if(originalTree == NULL)
         copy = NULL;
     else {
-        copy = new TreeNode;
+        copy = new TreeNode<ItemType>;
         copy->info = originalTree->info;
         CopyTree(copy->left, originalTree->left);
         CopyTree(copy->right, originalTree->right);
     }
 }
 
-void TreeType::operator=(const TreeType& originalTree)
+template <class ItemType>
+void TreeType<ItemType>::operator=(const TreeType& originalTree)
 // Calls recursive function CopyTree to copy originalTree
 // into root.
 {
@@ -361,9 +394,10 @@ void TreeType::operator=(const TreeType& originalTree)
     }
 }
 
-void TreeType::LevelOrderPrint() const {  // Implement this function, you May use a data structure
-    QueType<TreeNode*> nodeQue;
-    TreeNode* currentNode;
+template <class ItemType>
+void TreeType<ItemType>::LevelOrderPrint() const {  // Implement this function, you May use a data structure
+    QueType<TreeNode<ItemType>*> nodeQue;
+    TreeNode<ItemType>* currentNode;
     if(root != NULL) {
         currentNode = root;
         nodeQue.Enqueue(currentNode);
@@ -396,7 +430,7 @@ void TreeType::LevelOrderPrint() const {  // Implement this function, you May us
                 nodeQue.Enqueue(currentNode->left);
                 nodeQue.Enqueue(currentNode->right);
                 cout << currentNode->info << " ";
-                numNodesPrinted = numNodesPrinted + 1;  // Increment this every time we dequeue a non-null TreeNode
+                numNodesPrinted = numNodesPrinted + 1;  // Increment this every time we dequeue a non-null TreeNode<ItemType>
             } else {
                 // If the node is null, print -
                 cout << "- ";

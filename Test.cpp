@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "TreeType.h"
+#include "TreeType.cpp"
 
 using namespace std;
 
 int main() {
-    TreeType tree;
+    TreeType<int> tree;
     tree.PutItem(50);
     tree.PutItem(40);
     tree.PutItem(60);
@@ -15,7 +15,7 @@ int main() {
     tree.PutItem(65);
     tree.LevelOrderPrint();
     cout << endl;
-    TreeType tree2(tree);
+    TreeType<int> tree2(tree);
     tree2.LevelOrderPrint();
     cout << endl;
 
