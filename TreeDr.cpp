@@ -15,7 +15,7 @@ int main() {
     TreeType tree;
     bool found;
     ifstream inFile;
-    inFile.open("input.txt");
+    inFile.open("input2.txt");
     inFile >> command;
 
     while(command != "Quit") {
