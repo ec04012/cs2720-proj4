@@ -15,10 +15,17 @@ int main() {
     tree.PutItem(65);
     tree.LevelOrderPrint();
     cout << endl;
-    for(int i = 35; i < 66; i++) {
-        cout << "i=" << i << endl;
-        tree.PrintAncestors(i);
-        cout << endl;
-    }
+    TreeType tree2(tree);
+    tree2.LevelOrderPrint();
+    cout << endl;
+
+    tree2.DeleteItem(35);
+    tree2.PutItem(100);
+
+    tree.LevelOrderPrint();
+    cout << endl;
+
+    tree2.LevelOrderPrint();
+    cout << endl;
     return 0;
 }

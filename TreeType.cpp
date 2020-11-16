@@ -17,8 +17,7 @@ TreeType::TreeType() {
 
 TreeType::TreeType(const TreeType& originalTree) {
     // Implement this
-    // CopyTree(root, originalTree.root);
-    root = NULL;
+    CopyTree(root, originalTree.root);
 }
 
 void TreeType::Destroy(TreeNode*& tree)
