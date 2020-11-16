@@ -119,13 +119,13 @@ int main() {
             tree.PutItem(7);
             tree.PutItem(12);
             tree.PutItem(20);
-            cout << "\nOriginal Tree before mirroring:\n";
+            cout << "\nOriginal Tree before mirroring:\n" << endl;
             tree.LevelOrderPrint();
             TreeType<int> mirrorOftree;
             tree.mirrorImage(mirrorOftree);
-            cout << "Original Tree After Mirroring:\n";
+            cout << "Original Tree After Mirroring:\n" << endl;
             tree.LevelOrderPrint();
-            cout << "Mirror Image:\n";
+            cout << "Mirror Image:\n" << endl;
             mirrorOftree.LevelOrderPrint();
         }
 
@@ -159,11 +159,8 @@ int main() {
 // The helper function could be an iterative or a recursive function.
 template <class ItemType>
 void makeTree(TreeType<ItemType>& balancedTree, int arr[], int size) {
-    // Code to add array items in balancedTree
-    // Write your code
-    cout << "MakeTree has been called" << endl;
+    // call recursive function to make bst
     makeBalancedTree(balancedTree, arr, 0, size);
-    // remove this statement from implementation
 }
 
 template <class ItemType>

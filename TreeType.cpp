@@ -249,7 +249,7 @@ void TreeType<ItemType>::PostOrderPrint() const {
     // cout << "Post OrderPrint stub has been called\n";
 }
 template <class ItemType>
-void TreeType<ItemType>::PrintAncestors(int value) {
+void TreeType<ItemType>::PrintAncestors(ItemType value) {
     // Implement this function, You may call a helper function
     // Then Remove the following stub statement
 
@@ -322,7 +322,7 @@ TreeNode<ItemType>* TreeType<ItemType>::PtrToSuccessor(TreeNode<ItemType>*& tree
 }
 
 template <class ItemType>
-int TreeType<ItemType>::GetSuccessor(int value) {
+int TreeType<ItemType>::GetSuccessor(ItemType value) {
     // Implement this function, You may call a helper function
     TreeNode<ItemType>* currentNode = GetTreeNode(root, value);
     if(currentNode != NULL) {

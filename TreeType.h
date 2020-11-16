@@ -22,10 +22,10 @@ class TreeType {
     void operator=(const TreeType& originalTree);
     void Print() const;
     void LevelOrderPrint() const;
-    void PrintAncestors(int value);
+    void PrintAncestors(ItemType value);
     void PreOrderPrint() const;
     void PostOrderPrint() const;
-    int GetSuccessor(int value);
+    int GetSuccessor(ItemType value);
     void mirrorImage(TreeType& t);
 
    private:
